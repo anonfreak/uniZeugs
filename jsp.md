@@ -292,15 +292,16 @@ Mischform: Bildung von Gruppen mit ungebundenen Sitzungen
 
 | Angriff                   | Beschreibung                                                                                                     | Lösung                                      |
 |---------------------------|------------------------------------------------------------------------------------------------------------------|---------------------------------------------|
-| Request Manipulation      | Client ändert URL Zeile manuell                                                                                  | Server überprüft Zugriffsrechte             |
-| SQL Injection             | Client schickt SQL Statement                                                                                     | Eingaben encodieren, Stored Procedures      |
-| E-Mail Injection          | Client trägt mit \n mehrere E-Mails ein                                                                          | \n verhindern                               |
-| Cross-Site-Scripting      | Client fügt `<script>` in Nachricht ein                                                                          | <> encodieren, Tags whitelisten             |
+| Request Manipulation      | Client ändert URL Zeile manuell                                                                                  | Server überprüft Zugriffsrechte  auf jeder Seite            |
+| Directory Traversal | Ändern des Pfads um aus Anwendungsverzeichniss auszubrechen | Verwendung von Schlüsseln; kanonischen Pfad berechnen |
+| SQL Injection             | Client schickt SQL Statement über Eingabeparameter                                                                                    | Eingaben encodieren, Stored Procedures, JDBC-Driver lassen mehrere Befehle auf einmal nicht zu, Strukturbestandteile des SQLs nicht über Parameter übergebbar.; Prepared Statements      |
+| E-Mail Injection          | Client trägt mit \n mehrere E-Mails ein => Diese Email-Adressen werden in BCC eingertagen und somit an beliebig viele Leute gechickt => Spam-Mails                                                                        | \n verhindern                               |
+| Cross-Site-Scripting      | Client fügt `<script>` in Nachricht ein => reflektiert (in Seite eingebaut) / persistent (Schadcode in DB abgelegt) / lokal (Schadcode nur auf lokalem Rechner)                                                                  | <> encodieren zu unicode, Tags whitelisten (Falls nicht benötigt)          |
 | Cross-Site-Request-Forgey | Client fügt `<script>` in eine Nachricht ein, die Aktion bei anderen ausführt (z.B. abmelden, trojaner umleiten) | s.o.<br>Wenn wichtig: TAN                   |
 | Session Hijacking         | Session-ID wird ausgespäht und gekapert                                                                          | TAN, PW ändern nur mit Eingabe des alten PW |
-| Man-In-The-Browser        | Trojaner manipuliert Elemente im Browser, z.B. Fake URL                                                          | 2-Wege-Auth                                 |
-| Man-In-the-Middle         | Angreifer leitet Webseite manipulation weiter                                                                    | HTTPS, 2-Wege-Auth                          |
-| Phishing                  | Abfischen von Zugriffsdaten über Fake Webseite über E-Mails                                                      | gebundene TAN, 2-Wege, Aufklärung           |
+| Man-In-The-Browser        | Angreifer/Schadcode direkt beim Client und manipuliert gezielt HTML der Webseiten, sodass der Nutzer keinen Verdacht schöpft. Bsp: Online-Banking Manipulation einer Überweisung auf Angreifer-Konto ohne dass Nutzer das sieht & anschließend Manipulation des Kontostandes, um keinen Verdacht zu Schöpfen.  | 2-Wege-Auth ; Einfallsmöglichkeiten absichern                              |
+| Man-In-the-Middle         | Nutzer wird auf gefälschte Seite weitergeleitet (mit gleichem Aussehen etc.) & schickt requests sogar an originalen Server | HTTPS, 2-Wege-Auth                      |
+| Phishing                  | Abfischen von Zugriffsdaten über Fake Webseite die über Spam E-Mails kommen                                                  | gebundene TAN, 2-Wege, Aufklärung           |
 | Denial-of-Service         | Server mit Anfragen überfluten                                                                                   | Muster erkennen und nicht reagieren         |
 
 <a id="markdown-jsp" name="jsp"></a>
