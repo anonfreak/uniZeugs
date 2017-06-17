@@ -159,11 +159,9 @@ Scope kann als attribut festgelet werden.
 <!-- /TOC -->
 </aside>
 
-<a id="markdown-http" name="http"></a>
 ## HTTP
 Hypertext Transfer Protocoll überträgt Daten über TCP nach dem Request-Response Prinzip. Es werden somit keine Daten ohne Anfrage gesendet. Das Protokoll ist prinzipiell zustandslos, dies kann aber mit Sessions überwunden werden. 
 
-<a id="markdown-request" name="request"></a>
 ### Request
 Erste Zeile: ``Methode URI Protokoll`` Bsp: `GET /site.html HTTP/1.1`
 
@@ -200,8 +198,10 @@ Connection: Closed
 <a id="markdown-aufbau-uri" name="aufbau-uri"></a>
 ### Aufbau URI
 
-``Schema://Server:Port/Pfad?Anfrage#Fragment``
-| Typ      | Beschreibung                       | Beispiel             | Default                 |
+``Schema://Server:Port/Pfad?Anfrage#Fragment
+
+
+| Typ      | Beschreibung              | Beispiel             | Default                 |
 |----------|------------------------------------|----------------------|-------------------------|
 | Schema   | meist Übertragungsprotokoll        | http, ftp            | -                       |
 | Server   | Domain, ipv4-Adresse               | google.de, 127.0.0.1 | -                       |
@@ -213,6 +213,7 @@ alle Teile ab inkl. Port sind optional
 
 <a id="markdown-relative-url" name="relative-url"></a>
 ### Relative URL
+
 | Präfix  | Aktion                         | Beispiel            |
 |---------|--------------------------------|---------------------|
 | ``/``   | selber Schema, Server und Port | ``/next.html``      |
@@ -223,7 +224,6 @@ alle Teile ab inkl. Port sind optional
 
 Sonderzeichen müssen in ``%ASCII``, ``%UTF-8`` (2 st) oder ``%uUnicode`` (4st) konvertiert werden 
 
-<a id="markdown-transfer-encodingchunked" name="transfer-encodingchunked"></a>
 ### Transfer-Encoding:Chunked
 Die erste Zeile enthält die Länge des Brockens hexadezimal.
 (Ohne diese Zeile und die schließende Leerzeile)
@@ -243,7 +243,6 @@ pedia\r\n ←
 \r\n
 ```
 
-<a id="markdown-sessions" name="sessions"></a>
 ## Sessions
 
 Client erhält eine ID, der Server hinterlegt Daten an diese.
@@ -260,6 +259,8 @@ SessionID in URL<br>
 muss dem gleichen Server immer den gleichen Server zuordnen => doof
 
 oder: zentrale Verwaltung der SessionIDs
+
+
 | Sitzungsgebunden                  | Sitzungsungebunden           |
 |-----------------------------------|------------------------------|
 | Einfach, schnell                  | Komplex                      |
@@ -509,6 +510,8 @@ Aufbau Formular
 
 <a id="markdown-allg-attribute-für-hxxxx" name="allg-attribute-für-hxxxx"></a>
 ### Allg. Attribute für <h:xxxx>
+
+
 | Attribut                 | Beschreibung                                        |
 |--------------------------|-----------------------------------------------------|
 | `rendered="#{…}`         | nur Anzeige wenn Bedingung == true                  |
@@ -543,6 +546,8 @@ Eigene Konverter können unter einer ID (value/id) oder für einen Typ (forClass
 MVC im Client
 
 Two-Way-Databinding: Verbindung zwischen Model und View ist lesend und schreibend über einen einzelnen Ausdruck
+
+
 | Angular    | Beschreibung                     |
 |------------|----------------------------------|
 | `ng-app`   | Markierung Wurzelelement         |
@@ -659,6 +664,7 @@ Nachteile:
 - Indizierung von Suchmaschinen
 - komplexe Anpassung/Erweiterung
 - komplexe Fehlersuche
+
 
 
 
