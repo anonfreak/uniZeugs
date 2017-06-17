@@ -118,6 +118,23 @@ Scope kann als attribut festgelet werden.
 | Session | session | HttpSession | sessionScope |
 | Application | application | ServletContext | applicationScope|
 
+# Benutzerverwaltung
+## Sessions
+Jedem Client wird eine Session-ID zugewiesen, diese kann unter Verwendung mehrerer Methoden erhalten werden. Sessions und wie sie gehandelt werden, wird vom Webserver gesteuert.
+### URL-Rewriting
+Session-ID ist stets in der URL zu finden
++ Client muss keine Cookies unterstützen
+- Session-ID gut sichtbar
+- Gefahr des Session-Ridings
+- Keine Speicherung der URL als Favorit möglich
+- Beschränkte Größe der URL
+### Cookies
+Session-ID wird im Cookie des Browser gehalten
++ Nicht offensichtlich sichbar und auslesbar
++ Wird nicht in Favoriten mitgespeichert
+- Broswer muss Cookies unterstützen
+
+
 -----------------------------------
 
 # Zusammenfassung Web-Engineering 2016 (Parallelkurs)
