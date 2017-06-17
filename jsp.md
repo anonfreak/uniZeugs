@@ -134,6 +134,136 @@ Session-ID wird im Cookie des Browser gehalten
 + Wird nicht in Favoriten mitgespeichert
 - Broswer muss Cookies unterstützen
 
+# Wunschliste
+## Controller
+- Einlesen der Parameter (Zuordnen der Parameter zu Modelleigenschaften)
+- Prüfen der Parameter (anhand Modelleigenschaften)
+- Falls Prüfung korrekt
+  - Konvertieren
+  - Daten in Modell übernehmen
+  - Aktion auslösen
+  - Folgeseite auswählen und aufrufen
+- Falls nicht
+  - Fehlermeldung
+
+## Framework
+- Automatische Typprüfung von Eingaben
+- Automatische Konvertierung der Daten
+- Automatische Zuordnung von Parametern an Beans
+- Verwaltung von Fehlermeldungen
+- Konfiguration der Folgeseiten
+
+Eine mögliche Lösung => [Java Server Faces](#java-server-faces)
+
+# JSF Commands
+## <f:view>
+Wrapper für JSF-Komponente, mit ID für Navigation.
+
+**Attribute:**
+- contentType
+- encoding
+- locale
+- afterphase
+- beforephase
+- renderKitId
+
+<a id="allH" name="allH"></a>
+## All <h:xxx>
+**Attribute:**
+- id
+- rendered
+- escape
+- title
+- style
+- styleClass
+
+## <h:outputText>
+Ausgabe von Text 
+
+**Attribute (extends [all](#allH)):**
+- value *(auszugebender Text)*
+
+## <h:form>
+Erzeugt HTML-Fomular.
+
+**Attribute (extends [all](#allH)):**
+- value *(auszugebender Text)*
+
+## <h:outputLabel>
+Erzeugt HTML-Label.
+
+**Attribute (extends [all](#allH)):**
+- for *(siehe HTML label element)*
+
+## <h:inputText>
+Erzeugt HTML-Fomular.
+
+**Attribute (extends [all](#allH)):**
+- value *(Value-expression für Zugriff auf Bean)*
+- validator
+- validatorMessage
+- converter
+- converterMessage
+- required
+- requiredMessage
+
+## <h:commandButton>
+HTML-Fomular absenden.
+
+**Attribute (extends [all](#allH)):**
+- value *(auszugebender Text)*
+- action *(auszuführende Methode)*
+- actionListener
+
+## <h:panelGrid>
+Spaltenweises Anordnen von Kindselementen
+
+**Attribute (extends [all](#allH)):**
+- columns *(Anzahl spalten)*
+- cellspacing
+- cellpadding
+
+## <h:message>
+Ausgabe Fehlermeldung Validator oder Konverter.
+
+**Attribute (extends [all](#allH)):**
+- for *(id des Input-Elements für das die Nachricht anliegt)*
+- showDetail, showSummary
+- warnStyle, warnClass
+- errorStyle, errorClass
+- fatalStyle, fatalClass
+
+# JSF-Navigation
+Folgeseiten können in *faces-config.xml* festgelegt werden.
+```xml
+<navigation-rule>  
+  <from-view-id>/page1.xhtml</from-view-id>   <navigation-case>
+    <from-outcome>resultString</from-outcome>
+    <to-view-id>/page2.xhtml</to-view-id>
+  </navigation-case>
+</navigation-rule>
+```
+
+## \<navigation-rule>
+Klammer um eine Regel
+### \<from-view-id>
+View, von der die Regel ausgeht
+### \<display-name>
+Klarname für Werkzeuge
+### \<description>
+Beschreibung für Werkzeuge.
+### \<navigation-case>
+Navigations-Fall
+- \<display-name> *Klarname für Werkzeuge*
+- \<description> *Beschreibung für Werkzeuge*
+- \<from-outcome> *Ergebniss der Aktion*
+- \<from-action> *Text der Aktion*
+- \<to-view-id> *Ziel-View (relativ)*
+- \<redirect> *Redirect statt Forward*
+
+
+
+
 
 -----------------------------------
 
@@ -438,6 +568,8 @@ Nachteile:
 Idee: Sich wiederholenden Code und Abläufe automatisieren
 
 Lebenszyklus:
+![JSF-Diagram](JSFDiagram.PNG)
+
 1. **Restore View** - Wiederherstellen des Komponentenbaumes der View
 2. **Apply Request Parameters** - Übergabeparameter lesen
 3. **Process Validation** - Sind die Parameter korrekt?
@@ -454,9 +586,11 @@ Falsche Eingabe: Client → 1-3) → 6)
 ### faces-config.xml
 
 In der `faces-config.xml` wird die komplette Steuerung der Anwendung angelegt
-- Registrierung von Beans unter einem Namen und Scope. Bei Verwendung in der Expression-Language wird die Bean automatisch erzeugt
+- Registrierung von *Beans* unter einem Namen und Scope. Bei Verwendung in der Expression-Language wird die Bean automatisch erzeugt
 - Festlegung der möglichen Folgeview über "result Strings"
-- Registrierung von Anwendungsweiten Convertern und Validatoren unter einem Namen
+- Registrierung von Anwendungsweiten *Convertern* und *Validatoren* unter einem Namen
+- *Navigation*
+- *Listener*
 
 Alternativ existiert die Verwendung von Annotationen. Beans werden mit @ManagedBean gekennzeichnet und müssen eine weitere Annotation zur Zuweisung des Scopes besizen. Standardname der Bean ist initial Lowercase
 
@@ -482,6 +616,22 @@ Erlaubt: `#{bean.method()}`. Signatur und Übergabeparameter werden durch Art de
 
 <a id="markdown-snippets" name="snippets"></a>
 #### Snippets
+
+Beans:<br/>
+Per Annotation:
+```java
+@ManagedBean
+@ViewScoped
+public class SayHelloBean () {...}
+```
+In config:
+```xml
+<managed-bean>
+  <managed-bean-name>sayHelloBean</managed-bean-name>
+  <managed-bean-class>demo.sayHelloBean</manages-bean-class>
+  <manages-bean-scope>view</manages-bean-scope>
+</managed-bean>
+```
 
 Ausgabe einer CRUD-Tabelle
 ```xml
