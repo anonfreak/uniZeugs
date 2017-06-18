@@ -118,6 +118,43 @@ Scope kann als attribut festgelet werden.
 | Session | session | HttpSession | sessionScope |
 | Application | application | ServletContext | applicationScope|
 
+# JavaScript
+## DOM Manipulation
+Zugriff auf HTML-Seite per *document*.
+### Suchen eines Elements
+```javascript
+element = document.getElementById('id'); //Ein Element
+elements = document.getElementsByName('name'); //Array of Elementen
+```
+### Node Manipulation
+```javascript
+firstChild = element.firstChild; //Erste Kind von element bekommen
+firstChild.appendChild(elements[1]); //Kind hinzufügen
+attributes = firstChild.getAttributes(); //Attribute von firstChild erhalten
+```
+## Event Handling
+- onClick
+- onFocus
+- onChange
+- onMouseOver
+- ...
+```javascript
+element.addEventListener("click", function(event){/*do something*/});
+```
+
+## AJAX
+Ruft Daten von RESTful oder SOAP-Services ab und verarbeitet diese.
+```javascript
+var req = new XMLHttpRequest();
+req.open("GET", "www.wasauchimmer.de?param=xy", true);
+//Event Handler für Request
+req.onreadystatechanged = function receive(){
+  if(req.stateChanged==4) answer = req.responseText;
+}
+//Erst hier eigentliches absenden des Requests
+req.send();
+```
+
 # Benutzerverwaltung
 ## Sessions
 Jedem Client wird eine Session-ID zugewiesen, diese kann unter Verwendung mehrerer Methoden erhalten werden. Sessions und wie sie gehandelt werden, wird vom Webserver gesteuert.
