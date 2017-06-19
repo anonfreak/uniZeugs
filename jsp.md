@@ -83,7 +83,7 @@ Zusätzlich kann Scope angegeben werden als attribut.
 ```
 #### Variable ausgeben
 ```
-<c:out value="x">5</c:set>
+<c:out value="x"/>
 ```
 #### if
 ```
